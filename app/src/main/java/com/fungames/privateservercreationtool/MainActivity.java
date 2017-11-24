@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     // read the first block of the file to see if it is LZMA compressed
                     int len = in.read(buffer);
                     boolean lzmaFile = len > 0 && buffer[0] == ']' && fileName.endsWith(".csv"); // most probably a LZMA file
+                    boolean sclzmaFile = len > 0 && buffer[0] == ']' && fileName.endsWith(".sc"); // most probably a .SC LZMA file
                     OutputStream out;
                     if (lzmaFile) {
                         // write to a temporary byte buffer output stream
@@ -140,8 +141,30 @@ public class MainActivity extends AppCompatActivity {
                             out.write(buffer, 0, len);
                         }
                         firstBlock = false;
-                    } while ((len = in.read(buffer)) > 0);
+
+                    }
+                    while ((len = in.read(buffer)) > 0);
                     out.close();
+                    boolean scfirstBlock = true;
+                    do {
+                        if (scfirstBlock && sclzmaFile && len > 9) {
+                            // the header of the lzma file is corrupt. It needs to be 13 bytes but the last 4 bytes are missing
+                            out.write(buffer, 0, 9);
+                            out.write(0); // add the missing 4 bytes at the end of the lzma header
+                            out.write(0);
+                            out.write(0);
+                            out.write(0);
+                            out.write(buffer, 9, len - 9);
+                        }
+                        else {
+                            out.write(buffer, 0, len);
+                        }
+                        firstBlock = false;
+
+                    }
+                    while ((len = in.read(buffer)) > 0);
+                    out.close();
+
 
                     if (lzmaFile) {
                         // now we can use the LzmaDecompressor. It will read the temporary byte buffer as input stream
