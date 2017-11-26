@@ -2,8 +2,8 @@
     <string name="app_name">Private Server Creation Tool</string>
     <string name="action_settings">Settings</string>
     <string-array name="navigation_drawer_items_array">
-        <item>Connect</item>
-        <item>Fixtures</item>
-        <item>Table</item>
+        <item>Apk Decompression and Creation</item>
+        <item>Edit Card Stats</item>
+        <item>Edit Textures</item>
     </string-array>
 </resources>

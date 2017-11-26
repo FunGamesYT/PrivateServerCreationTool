@@ -1,9 +1,7 @@
 package com.fungames.privateservercreationtool;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -33,6 +32,41 @@ public class MainActivity extends AppCompatActivity {
     android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
     private String selectedApkPath;
     private String selectedApkFileName;
+    private ApkFragment apkFragment;
+    private CardStatsFragment cardStatsFragment;
+    private TexturesFragment texturesFragment;
+    private Decompress decompress;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        this.apkFragment = new ApkFragment();
+        this.cardStatsFragment = new CardStatsFragment();
+        this.texturesFragment = new TexturesFragment();
+
+        mTitle = mDrawerTitle = getTitle();
+        mNavigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_array);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        setupToolbar();
+
+        DataModel[] drawerItem = new DataModel[3];
+
+        drawerItem[0] = new DataModel(R.drawable.connect, "Apk");
+        drawerItem[1] = new DataModel(R.drawable.fixtures, "Card Stats");
+        drawerItem[2] = new DataModel(R.drawable.table, "Textures");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.list_view_item_row, drawerItem);
+        mDrawerList.setAdapter(adapter);
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        setupDrawerToggle();
+    }
 
     private void selectItem(int position) {
 
@@ -40,16 +74,15 @@ public class MainActivity extends AppCompatActivity {
 
         switch (position) {
             case 0:
-                fragment = new ConnectFragment();
-
+                fragment = apkFragment;
                 break;
             case 1:
-                fragment = new FixturesFragment();
+                fragment = cardStatsFragment;
+                cardStatsFragment.setCardStatsItems(decompress.getCardStatsItems());
                 break;
             case 2:
-                fragment = new TableFragment();
+                fragment = texturesFragment;
                 break;
-
             default:
                 break;
         }
@@ -61,49 +94,18 @@ public class MainActivity extends AppCompatActivity {
             mDrawerList.setSelection(position);
             setTitle(mNavigationDrawerItemTitles[position]);
             mDrawerLayout.closeDrawer(mDrawerList);
-
         } else {
             Log.e("MainActivity", "Error in creating fragment");
+        }
+        if (position == 1) {
         }
     }
 
     public class DrawerItemClickListener implements ListView.OnItemClickListener {
-
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             selectItem(position);
         }
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
-        mTitle = mDrawerTitle = getTitle();
-        mNavigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_array);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
-        setupToolbar();
-
-        DataModel[] drawerItem = new DataModel[3];
-
-        drawerItem[0] = new DataModel(R.drawable.connect, "Connect");
-        drawerItem[1] = new DataModel(R.drawable.fixtures, "Fixtures");
-        drawerItem[2] = new DataModel(R.drawable.table, "Table");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.list_view_item_row, drawerItem);
-        mDrawerList.setAdapter(adapter);
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        setupDrawerToggle();
-
     }
 
     public void selectapk(View v) {
@@ -116,39 +118,9 @@ public class MainActivity extends AppCompatActivity {
     public void decrypt(View v){
         ProgressBar decryptProgressBar = (ProgressBar) findViewById(R.id.decryptProgressBar);
         decryptProgressBar.setVisibility(ProgressBar.VISIBLE);
-
-        Decompress decompress = new Decompress(decryptProgressBar);
+        TextView currentFile = (TextView) findViewById(R.id.currentFile);
+        decompress = new Decompress(this);
         decompress.execute(selectedApkPath, selectedApkFileName);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                this);
-
-        // set title
-        alertDialogBuilder.setTitle("Your Title");
-
-        // set dialog message
-        alertDialogBuilder
-                .setMessage("Click yes to exit!")
-                .setCancelable(false)
-                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        // if this button is clicked, close
-                        // current activity
-                        MainActivity.this.finish();
-                    }
-                })
-                .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
-                        dialog.cancel();
-                    }
-                });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
     }
 
     @Override
