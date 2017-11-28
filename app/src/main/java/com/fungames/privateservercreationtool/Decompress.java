@@ -53,9 +53,9 @@ public class Decompress extends AsyncTask {
             Integer counter = 0;
             progressBar.setMax(files.size());
             for (ZipEntry zipEntry : files) {
-                if (counter > 100) {
-                    continue;
-                }
+                //if (counter > 100) {
+                //    continue;
+                //}
                 if (zipEntry.isDirectory()) {
                     continue;
                 }
