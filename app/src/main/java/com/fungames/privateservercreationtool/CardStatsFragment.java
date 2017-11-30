@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,10 @@ import android.webkit.MimeTypeMap;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -56,9 +60,23 @@ public class CardStatsFragment extends Fragment {
                 Toast.makeText(getContext(), item.getFilePath(), Toast.LENGTH_SHORT).show();
             }
         });
-        ArrayAdapter<CardStatsItem> adapter = new ArrayAdapter<CardStatsItem>(csvList.getContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, cardStatsItems.toArray(new CardStatsItem[0]));
-        csvList.setAdapter(adapter);
+        if (cardStatsItems != null) {
+
+            ArrayAdapter<CardStatsItem> adapter = new ArrayAdapter<CardStatsItem>(csvList.getContext(),
+                    android.R.layout.simple_list_item_1, android.R.id.text1, cardStatsItems.toArray(new CardStatsItem[0]));
+            csvList.setAdapter(adapter);
+        }
+        else {
+            View relativeLayout =  getView().findViewById(R.id.rl);
+            TextView valueTV = new TextView(getView().getContext());
+            valueTV.setText("Please select an apk before you edit Card Stats");
+            valueTV.setId(5);
+            valueTV.setLayoutParams(new RelativeLayout.LayoutParams(
+                    RelativeLayout.LayoutParams.FILL_PARENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT));
+            valueTV.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            ((RelativeLayout) relativeLayout).addView(valueTV);
+        }
     }
     private String getMimeType(String url)
     {

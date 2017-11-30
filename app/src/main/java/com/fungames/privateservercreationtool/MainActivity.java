@@ -78,7 +78,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 1:
                 fragment = cardStatsFragment;
-                cardStatsFragment.setCardStatsItems(decompress.getCardStatsItems());
+                if(decompress != null) {
+                    cardStatsFragment.setCardStatsItems(decompress.getCardStatsItems());
+                }
+                else {
+                    cardStatsFragment.setCardStatsItems(null);
+                }
                 break;
             case 2:
                 fragment = texturesFragment;

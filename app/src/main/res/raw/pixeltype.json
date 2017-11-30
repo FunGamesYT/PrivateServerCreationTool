@@ -1,0 +1,764 @@
+[
+    {
+        "filename": "arena_training_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_barbarian_hut_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_basic_cannon_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "building_bomb_tower_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_elixir_collector_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_firespirit_hut_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_goblin_hut_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_inferno_tower_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_mega_bomb_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_mortar_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_rage_bottle_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "building_tesla_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_tombstone_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_tower_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "building_xbow_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_archer_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_axe_man_highres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_baby_dragon_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_balloon_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_bandit_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_barbarian_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_bats_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_battle_ram_highres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_black_knight_highres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_bomber_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_bowler_highres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_dark_witch_highres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_electro_wizard_highres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_fire_firespirit_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_giant_skeleton_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_giant_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_goblin_archer_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_goblin_blowdart_highres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_goblin_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_golemite_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_golem_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_hog_rider_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_ice_spirits_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_ice_wizard_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_knight_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_lava_hound_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_lava_pups_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_mega_minion_highres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_miner_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_minion_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_mini_pekka_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_musketeer_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_pekka_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_princess_highres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_prince_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_rage_barbarian_highres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_royal_giant_highres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_skeleton_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_skeleton_warrior_highres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_snowman_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_valkyrie_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_witch_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_wizard_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_zap_machine_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "debug_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "effects_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "level_barbarian_arena_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "level_bone_arena_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "level_builder_arena_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "level_champion_arena_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "level_dark_arena_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "level_goblin_arena_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "level_ice_arena_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "level_jungle_arena_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "level_legendary_arena_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "level_royal_arena_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "level_spell_arena_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "loading_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "spell_goblin_barrel_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "tutorial_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "ui_arena_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "ui_battle_end_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "ui_chest_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "ui_spells_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "4"
+    },
+    {
+        "filename": "ui_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "arena_training_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "4"
+    },
+    {
+        "filename": "level_barbarian_arena_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "4"
+    },
+    {
+        "filename": "level_bone_arena_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "4"
+    },
+    {
+        "filename": "level_builder_arena_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "4"
+    },
+    {
+        "filename": "level_champion_arena_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "4"
+    },
+    {
+        "filename": "level_goblin_arena_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "4"
+    },
+    {
+        "filename": "level_ice_arena_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "4"
+    },
+    {
+        "filename": "level_jungle_arena_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "4"
+    },
+    {
+        "filename": "level_spell_arena_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "4"
+    },
+    {
+        "filename": "loading_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "4"
+    },
+    {
+        "filename": "loading_tex__",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "6"
+    },
+    {
+        "filename": "tutorial_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "6"
+    },
+    {
+        "filename": "ui_battle_end_tex_",
+        "filetype": "27",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "ui_spells_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "ui_tex_",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "10"
+    },
+    {
+        "filename": "building_barbarian_hut_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_basic_cannon_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "building_bomb_tower_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_elixir_collector_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_firespirit_hut_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_inferno_tower_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_mortar_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_tesla_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_tombstone_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "0"
+    },
+    {
+        "filename": "building_xbow_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_axe_man_lowres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_balloon_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_barbarian_lowres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_battle_ram_lowres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_black_knight_lowres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_bowler_lowres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_dark_witch_lowres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_electro_wizard_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_flying_machine_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_goblin_blowdart_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_golemite_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_golem_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_hog_rider_lowres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_mega_knight_lowres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_mega_minion_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_movingcannon_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_princess_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_rage_barbarian_lowres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_royal_giant_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_skeleton_balloon_lowres_tex",
+        "filetype": "1",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "chr_skeleton_warrior_lowres_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    },
+    {
+        "filename": "level_decos_tex",
+        "filetype": "28",
+        "hexsc": "",
+        "pixel": "2"
+    }
+]
