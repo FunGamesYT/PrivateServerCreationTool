@@ -17,7 +17,6 @@ import android.webkit.MimeTypeMap;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,7 +26,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class CardStatsFragment extends Fragment {
-    private ArrayList<CardStatsItem> cardStatsItems = new ArrayList<>();
+    private ArrayList<FileInfo> cardStatsItems = new ArrayList<>();
 
     public CardStatsFragment() {
     }
@@ -39,7 +38,7 @@ public class CardStatsFragment extends Fragment {
         return rootView;
     }
 
-    public void setCardStatsItems(ArrayList<CardStatsItem> cardStatsItems) {
+    public void setCardStatsItems(ArrayList<FileInfo> cardStatsItems) {
         this.cardStatsItems = cardStatsItems;
     }
 
@@ -51,7 +50,7 @@ public class CardStatsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Adapter adapter = adapterView.getAdapter();
-                CardStatsItem item = (CardStatsItem) adapter.getItem(i);
+                FileInfo item = (FileInfo) adapter.getItem(i);
                 File csv = new File(item.getFilePath());
                 Intent intent = new Intent();
                 intent.setAction(android.content.Intent.ACTION_VIEW);
@@ -62,15 +61,14 @@ public class CardStatsFragment extends Fragment {
         });
         if (cardStatsItems != null) {
 
-            ArrayAdapter<CardStatsItem> adapter = new ArrayAdapter<CardStatsItem>(csvList.getContext(),
-                    android.R.layout.simple_list_item_1, android.R.id.text1, cardStatsItems.toArray(new CardStatsItem[0]));
+            ArrayAdapter<FileInfo> adapter = new ArrayAdapter<FileInfo>(csvList.getContext(),
+                    android.R.layout.simple_list_item_1, android.R.id.text1, cardStatsItems.toArray(new FileInfo[0]));
             csvList.setAdapter(adapter);
         }
         else {
             View relativeLayout =  getView().findViewById(R.id.rl);
             TextView valueTV = new TextView(getView().getContext());
             valueTV.setText("Please select an apk before you edit Card Stats");
-            valueTV.setId(5);
             valueTV.setLayoutParams(new RelativeLayout.LayoutParams(
                     RelativeLayout.LayoutParams.FILL_PARENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT));

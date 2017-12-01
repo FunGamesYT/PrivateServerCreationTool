@@ -1,12 +1,8 @@
 package com.fungames.privateservercreationtool;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -34,7 +30,8 @@ public class Decompress extends AsyncTask {
     private final TextView currentFileTextView;
     private String selectedPath;
     private String selectedFile;
-    private ArrayList<CardStatsItem> cardStatsItems = new ArrayList<>();
+    private ArrayList<FileInfo> cardStatsItems = new ArrayList<>();
+    private ArrayList<FileInfo> texturesItems = new ArrayList<>();
 
     public Decompress(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -53,7 +50,7 @@ public class Decompress extends AsyncTask {
             Integer counter = 0;
             progressBar.setMax(files.size());
             for (ZipEntry zipEntry : files) {
-                //if (counter > 100) {
+                //if (counter > 150) {
                 //    continue;
                 //}
                 if (zipEntry.isDirectory()) {
@@ -82,9 +79,12 @@ public class Decompress extends AsyncTask {
                     out = new FileOutputStream(targetFile);
                     publishProgress(counter, "Decompressing " + targetFileName, targetPath);
                 }
-                if(targetFileName.endsWith(".csv")) {
+                if (targetFileName.endsWith(".csv")) {
                     String[] targetFileNameFragments = targetFileName.split("/");
-                    cardStatsItems.add(new CardStatsItem(targetFileNameFragments[targetFileNameFragments.length - 1], targetPath));
+                    cardStatsItems.add(new FileInfo(targetFileNameFragments[targetFileNameFragments.length - 1], targetPath));
+                } else if (targetFileName.endsWith("_tex.sc")) {
+                    String[] targetFileNameFragments = targetFileName.split("/");
+                    texturesItems.add(new FileInfo(targetFileNameFragments[targetFileNameFragments.length - 1], targetPath));
                 }
 
                 boolean firstBlock = true;
@@ -159,12 +159,16 @@ public class Decompress extends AsyncTask {
     @Override
     protected void onProgressUpdate(Object[] values) {
         progressBar.setProgress((Integer) values[0]);
-        currentFileTextView.setText((String)values[1]);
+        currentFileTextView.setText((String) values[1]);
 
     }
 
-    public ArrayList<CardStatsItem> getCardStatsItems() {
+    public ArrayList<FileInfo> getCardStatsItems() {
         return cardStatsItems;
+    }
+
+    public ArrayList<FileInfo> getTexturesItems() {
+        return texturesItems;
     }
 }
 

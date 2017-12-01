@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -87,6 +86,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 2:
                 fragment = texturesFragment;
+                if(decompress != null) {
+                    texturesFragment.setTexturesItems(decompress.getTexturesItems());
+                }
+                else {
+                    texturesFragment.setTexturesItems(null);
+                }
                 break;
             default:
                 break;

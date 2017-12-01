@@ -4,11 +4,11 @@ package com.fungames.privateservercreationtool;
  * Created by Fabian on 26.11.2017.
  */
 
-public class CardStatsItem {
+public class FileInfo {
     private String fileName;
     private String filePath;
 
-    public CardStatsItem(String fileName, String filePath) {
+    public FileInfo(String fileName, String filePath) {
         this.fileName = fileName;
         this.filePath = filePath;
     }
