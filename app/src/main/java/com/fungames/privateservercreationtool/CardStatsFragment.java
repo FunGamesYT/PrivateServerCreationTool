@@ -24,9 +24,11 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CardStatsFragment extends Fragment {
-    private ArrayList<FileInfo> cardStatsItems = new ArrayList<>();
+    private Set<FileInfo> cardStatsItems = new HashSet<>();
 
     public CardStatsFragment() {
     }
@@ -38,7 +40,7 @@ public class CardStatsFragment extends Fragment {
         return rootView;
     }
 
-    public void setCardStatsItems(ArrayList<FileInfo> cardStatsItems) {
+    public void setCardStatsItems(Set<FileInfo> cardStatsItems) {
         this.cardStatsItems = cardStatsItems;
     }
 

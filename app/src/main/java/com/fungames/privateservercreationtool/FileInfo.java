@@ -25,4 +25,22 @@ public class FileInfo {
     public String toString() {
         return fileName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FileInfo fileInfo = (FileInfo) o;
+
+        if (!fileName.equals(fileInfo.fileName)) return false;
+        return filePath.equals(fileInfo.filePath);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = fileName.hashCode();
+        result = 31 * result + filePath.hashCode();
+        return result;
+    }
 }

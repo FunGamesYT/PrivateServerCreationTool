@@ -4,6 +4,7 @@ package com.fungames.privateservercreationtool;
  * Created by Fabian on 24.11.2017.
  */
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -33,10 +34,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class TexturesFragment extends Fragment {
 
-    private ArrayList<FileInfo> texturesItems;
+    private Set<FileInfo> texturesItems;
 
     public TexturesFragment() {
     }
@@ -50,7 +52,7 @@ public class TexturesFragment extends Fragment {
         return rootView;
     }
 
-    public void setTexturesItems(ArrayList<FileInfo> cardStatsItems) {
+    public void setTexturesItems(Set<FileInfo> cardStatsItems) {
         this.texturesItems = cardStatsItems;
     }
 
@@ -63,33 +65,15 @@ public class TexturesFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Adapter adapter = adapterView.getAdapter();
                 FileInfo item = (FileInfo) adapter.getItem(i);
-                File scFile = new File(item.getFilePath());
-                try {
-                    FileInputStream inStream = new FileInputStream(scFile);
-                    String suffix = "";
-                    do {
-                        Bitmap bitmap = Textures.getBitmapBySc(inStream);
-                        if (bitmap == null) {
-                            break;
-                        }
-                        File targetFile = new File(Environment.getExternalStorageDirectory(), "ExtractedPNGs/" + item.getFileName() + suffix + ".png");
-                        FileOutputStream out = new FileOutputStream(targetFile);
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-                        out.close();
-                        suffix += "_";
-                    } while (inStream.available() > 0);
-                    inStream.close();
+                ProgressDialog progressDialog = new ProgressDialog(getContext());
+                progressDialog.setMessage("Reading textures");
+                progressDialog.setTitle(item.getFileName());
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progressDialog.setProgressNumberFormat(null);
+                progressDialog.show();
+                Textures textures = new Textures();
+                textures.execute(item, progressDialog);
                     Toast.makeText(getContext(), item.getFilePath(), Toast.LENGTH_SHORT).show();
-                } catch (FileNotFoundException e) {
-                    Log.e("Textures", String.format("Failed to read file '%s': %s", item.getFilePath(), e.getMessage()));
-                    // TODO create toast in error case
-                } catch (TextureException e) {
-                    Log.e("Textures", String.format("Failed to read texture '%s': %s", item.getFilePath(), e.getMessage()));
-                    // TODO create toast in error case
-                } catch (IOException e) {
-                    Log.e("Textures", String.format("Failed to read file '%s': %s", item.getFilePath(), e.getMessage()));
-                    // TODO create toast in error case
-                }
             }
         });
         if (texturesItems != null) {

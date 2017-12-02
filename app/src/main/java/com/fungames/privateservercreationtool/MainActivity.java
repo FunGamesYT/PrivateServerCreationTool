@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         drawerItem[2] = new DataModel(R.drawable.table, "Textures");
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
+        decompress = new Decompress(this);
+        decompress.readFromSharedPreference();
 
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.list_view_item_row, drawerItem);
         mDrawerList.setAdapter(adapter);
@@ -129,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
         ProgressBar decryptProgressBar = (ProgressBar) findViewById(R.id.decryptProgressBar);
         decryptProgressBar.setVisibility(ProgressBar.VISIBLE);
         TextView currentFile = (TextView) findViewById(R.id.currentFile);
-        decompress = new Decompress(this);
         decompress.execute(selectedApkPath, selectedApkFileName);
     }
 

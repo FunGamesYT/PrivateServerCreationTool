@@ -1,12 +1,21 @@
 package com.fungames.privateservercreationtool.ScLib;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.os.AsyncTask;
+import android.os.Environment;
+import android.widget.ProgressBar;
+
+import com.fungames.privateservercreationtool.FileInfo;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -17,19 +26,62 @@ import java.util.stream.Stream;
  * Created by Fabian on 30.11.2017.
  */
 
-public class Textures
+public class Textures extends AsyncTask
 {
     private static int[] Convert5To8 = {
                 0x00, 0x08, 0x10, 0x18, 0x20, 0x29, 0x31, 0x39, 0x41, 0x4A, 0x52, 0x5A, 0x62, 0x6A, 0x73, 0x7B, 0x83, 0x8B,
                 0x94, 0x9C, 0xA4, 0xAC, 0xB4, 0xBD, 0xC5, 0xCD, 0xD5, 0xDE, 0xE6, 0xEE, 0xF6, 0xFF
     };
+    private ProgressDialog progressDialog;
+
+    @Override
+    protected Object doInBackground(Object[] objects) {
+        FileInfo fileInfo = (FileInfo) objects[0];
+        progressDialog = (ProgressDialog) objects[1];
+        File scFile = new File(fileInfo.getFilePath());
+        try {
+            FileInputStream inStream = new FileInputStream(scFile);
+            String suffix = "";
+            do {
+                Bitmap bitmap = getBitmapBySc(inStream);
+                if (bitmap == null) {
+                    break;
+                }
+                File targetFile = new File(Environment.getExternalStorageDirectory(), "ExtractedPNGs/" + fileInfo.getFileName() + suffix + ".png");
+                new File(targetFile.getParent()).mkdirs();
+                FileOutputStream out = new FileOutputStream(targetFile);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                out.close();
+                suffix += "_";
+            } while (inStream.available() > 0);
+            inStream.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TextureException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+    @Override
+    protected void onPostExecute(Object o) {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    protected void onProgressUpdate(Object[] values) {
+        progressDialog.setProgress((Integer) values[0]);
+    }
 
     /// <summary>
     ///     Exports the texture from a SC File
     /// </summary>
     /// <param name="inStream"></param>
     /// <returns></returns>
-    public static Bitmap getBitmapBySc(InputStream inStream) throws TextureException {
+    public Bitmap getBitmapBySc(InputStream inStream) throws TextureException {
         byte id = 0;
         try {
             id = (byte) inStream.read();
@@ -50,13 +102,19 @@ public class Textures
             int ttHeigth = id == 1 ? height - mtHeigth : (height - mtHeigth) / 32;
 
             int[][] pixelArray = new int[height][width];
-
+            if (ttHeigth == 0) {
+                progressDialog.setMax(ttWidth + mtHeigth);
+            }
+            else {
+                progressDialog.setMax(ttHeigth);
+            }
             for (int index = 0; index < ttHeigth + 1; index++) {
                 int lHeigth = 32;
 
                 if (index == ttHeigth) {
                     lHeigth = mtHeigth;
                 }
+
 
                 for (int t = 0; t < ttWidth; t++) {
                     for (int y = 0; y < lHeigth; y++) {
@@ -67,6 +125,9 @@ public class Textures
                             pixelArray[y + yOffset][x + xOffset] = getColorByPxFormat(inStream, pxFomat);
                         }
                     }
+                    if (ttHeigth == 0) {
+                        publishProgress(t);
+                    }
                 }
 
                 for (int y = 0; y < lHeigth; y++) {
@@ -74,10 +135,17 @@ public class Textures
                         int pxOffsetX = ttWidth * 32, pxOffsetY = index * 32;
                         pixelArray[y + pxOffsetY][x + pxOffsetX] = getColorByPxFormat(inStream, pxFomat);
                     }
+                    if (ttHeigth == 0) {
+                        publishProgress(ttWidth + y);
+                    }
+                }
+                if (ttHeigth > 0) {
+                    publishProgress(index);
                 }
             }
 
             Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
 
             for (int row = 0; row < height; row++) {
                 for (int column = 0; column < width; column++) {
@@ -91,7 +159,7 @@ public class Textures
         }
     }
 
-    private static int getColorByPxFormat(InputStream inStream, int pxFormat) throws TextureException {
+    private int getColorByPxFormat(InputStream inStream, int pxFormat) throws TextureException {
         int color;
         byte[] byteArr = new byte[2];
         try {
@@ -132,7 +200,7 @@ public class Textures
                 int r = ((color >> 11) & 0x1F) << 3;
                 int g = ((color >> 5) & 0x3F) << 2;
                 int b = (color & 0X1F) << 3;
-                color = Color.argb(0xFF, r, g, b);
+                color = Color.argb(0, r, g, b);
                 break;
             }
             case 6: {
@@ -159,4 +227,5 @@ public class Textures
             throw new TextureException(e);
         }
     }
+
 }

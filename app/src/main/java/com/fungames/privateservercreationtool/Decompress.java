@@ -1,5 +1,7 @@
 package com.fungames.privateservercreationtool;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
@@ -16,31 +18,37 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Fabian on 26.11.2017.
  */
 
 public class Decompress extends AsyncTask {
+    private static final String APP_SHARED_PREFERENCES = "AppSettings";
     private final MainActivity mainActivity;
-    private final ProgressBar progressBar;
-    private final TextView currentFileTextView;
+    private ProgressBar progressBar;
+    private TextView currentFileTextView;
+    private static final String CARD_STATS_LIST = "CardStatsList";
+    private static final String TEXTURES_LIST = "TexturesList";
     private String selectedPath;
     private String selectedFile;
-    private ArrayList<FileInfo> cardStatsItems = new ArrayList<>();
-    private ArrayList<FileInfo> texturesItems = new ArrayList<>();
+    private Set<FileInfo> cardStatsItems = new HashSet<>();
+    private Set<FileInfo> texturesItems = new HashSet<>();
 
     public Decompress(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        this.progressBar = (ProgressBar) mainActivity.findViewById(R.id.decryptProgressBar);
-        this.currentFileTextView = (TextView) mainActivity.findViewById(R.id.currentFile);
     }
 
     @Override
     protected Object doInBackground(Object[] objects) {
+        progressBar = (ProgressBar) mainActivity.findViewById(R.id.decryptProgressBar);
+        currentFileTextView = (TextView) mainActivity.findViewById(R.id.currentFile);
         try {
             selectedPath = (String) objects[0];
             selectedFile = (String) objects[1];
@@ -50,9 +58,9 @@ public class Decompress extends AsyncTask {
             Integer counter = 0;
             progressBar.setMax(files.size());
             for (ZipEntry zipEntry : files) {
-                //if (counter > 150) {
-                //    continue;
-                //}
+//                if (counter > 150) {
+//                    continue;
+//                }
                 if (zipEntry.isDirectory()) {
                     continue;
                 }
@@ -154,6 +162,48 @@ public class Decompress extends AsyncTask {
     protected void onPostExecute(Object o) {
         progressBar.setVisibility(ProgressBar.INVISIBLE);
         currentFileTextView.setText("");
+        // save the task list to preferences
+        writeToSharedPreferences();
+    }
+
+    private void writeToSharedPreferences() {
+        SharedPreferences shared = mainActivity.getSharedPreferences(APP_SHARED_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = shared.edit();
+        Set<String> csi = new HashSet<>();
+        for (FileInfo fi : cardStatsItems) {
+            csi.add(fi.getFilePath());
+        }
+        editor.putStringSet(CARD_STATS_LIST, csi);
+        Set<String> ti = new HashSet<>();
+        for (FileInfo fi : texturesItems) {
+            ti.add(fi.getFilePath());
+        }
+        editor.putStringSet(TEXTURES_LIST, ti);
+        editor.apply();
+    }
+
+    public void readFromSharedPreference() {
+        SharedPreferences shared = mainActivity.getSharedPreferences(APP_SHARED_PREFERENCES, MODE_PRIVATE);
+        Set<String> csi = shared.getStringSet(CARD_STATS_LIST, null);
+        if (csi != null) {
+            cardStatsItems.clear();
+            for (String path : csi) {
+                String[] targetFileNameFragments = path.split("/");
+                String fileName = targetFileNameFragments[targetFileNameFragments.length - 1];
+                FileInfo item = new FileInfo(fileName, path);
+                cardStatsItems.add(item);
+            }
+        }
+        Set<String> ti = shared.getStringSet(TEXTURES_LIST, null);
+        if (ti != null) {
+            texturesItems.clear();
+            for (String path : ti) {
+                String[] targetFileNameFragments = path.split("/");
+                String fileName = targetFileNameFragments[targetFileNameFragments.length - 1];
+                FileInfo item = new FileInfo(fileName, path);
+                texturesItems.add(item);
+            }
+        }
     }
 
     @Override
@@ -163,11 +213,11 @@ public class Decompress extends AsyncTask {
 
     }
 
-    public ArrayList<FileInfo> getCardStatsItems() {
+    public Set<FileInfo> getCardStatsItems() {
         return cardStatsItems;
     }
 
-    public ArrayList<FileInfo> getTexturesItems() {
+    public Set<FileInfo> getTexturesItems() {
         return texturesItems;
     }
 }
