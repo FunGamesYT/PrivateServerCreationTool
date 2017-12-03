@@ -1,7 +1,10 @@
 package com.fungames.privateservercreationtool;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,12 +14,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fungames.privateservercreationtool.ScLib.Textures;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -134,6 +146,46 @@ public class MainActivity extends AppCompatActivity {
         decompress.execute(selectedApkPath, selectedApkFileName);
     }
 
+    public void compress(View v){
+        File srcFile = new File(Environment.getExternalStorageDirectory(), ".PSCT/");
+        File[] files = srcFile.listFiles();
+        if (files != null) {
+            List<FileInfo> dirList = new ArrayList<>();
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    dirList.add(new FileInfo(file));
+                }
+            }
+            final Dialog dialog = new Dialog(MainActivity.this);
+            dialog.setContentView(R.layout.directory_list);
+            dialog.setTitle("Which apk you want to create?");
+            ListView apkList = (ListView) dialog.findViewById(R.id.dirList);
+            ArrayAdapter<FileInfo> adapter = new ArrayAdapter<FileInfo>(this,
+                    android.R.layout.simple_list_item_2, android.R.id.text1, dirList.toArray(new FileInfo[0]));
+            apkList.setAdapter(adapter);
+            dialog.show();
+            apkList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Adapter adapter = adapterView.getAdapter();
+                    FileInfo item = (FileInfo) adapter.getItem(i);
+                    ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog.setMessage("Creating " + item.getFileName());
+                    progressDialog.setTitle(item.getFileName());
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                    progressDialog.setProgressNumberFormat(null);
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+                    Compress compress = new Compress();
+                    compress.execute(item, progressDialog);
+                    dialog.dismiss();
+                }
+            });
+        } else {
+            // no files were found or this is not a directory
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -160,6 +212,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (mDrawerToggle.onOptionsItemSelected(item)) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 

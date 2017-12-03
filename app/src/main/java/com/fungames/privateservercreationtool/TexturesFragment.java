@@ -70,6 +70,7 @@ public class TexturesFragment extends Fragment {
                 progressDialog.setTitle(item.getFileName());
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                 progressDialog.setProgressNumberFormat(null);
+                progressDialog.setCancelable(false);
                 progressDialog.show();
                 Textures textures = new Textures();
                 textures.execute(item, progressDialog);

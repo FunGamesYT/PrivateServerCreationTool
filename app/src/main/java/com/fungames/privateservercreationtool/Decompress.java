@@ -157,15 +157,6 @@ public class Decompress extends AsyncTask {
         }
     }
 
-
-    @Override
-    protected void onPostExecute(Object o) {
-        progressBar.setVisibility(ProgressBar.INVISIBLE);
-        currentFileTextView.setText("");
-        // save the task list to preferences
-        writeToSharedPreferences();
-    }
-
     private void writeToSharedPreferences() {
         SharedPreferences shared = mainActivity.getSharedPreferences(APP_SHARED_PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor editor = shared.edit();
@@ -210,7 +201,14 @@ public class Decompress extends AsyncTask {
     protected void onProgressUpdate(Object[] values) {
         progressBar.setProgress((Integer) values[0]);
         currentFileTextView.setText((String) values[1]);
+    }
 
+    @Override
+    protected void onPostExecute(Object o) {
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
+        currentFileTextView.setText("");
+        // save the task list to preferences
+        writeToSharedPreferences();
     }
 
     public Set<FileInfo> getCardStatsItems() {

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.fungames.privateservercreationtool.FileInfo;
@@ -43,10 +44,15 @@ public class Textures extends AsyncTask
             FileInputStream inStream = new FileInputStream(scFile);
             String suffix = "";
             do {
+                long time = System.currentTimeMillis();
+                progressDialog.setMessage("Reading Textures");
                 Bitmap bitmap = getBitmapBySc(inStream);
                 if (bitmap == null) {
                     break;
                 }
+                progressDialog.setMessage("Saving as PNG");
+                long timediff = System.currentTimeMillis() - time;
+                Log.d("Time", "Time to decode file " + fileInfo.getFileName() + ": " + timediff + "ms");
                 File targetFile = new File(Environment.getExternalStorageDirectory(), "ExtractedPNGs/" + fileInfo.getFileName() + suffix + ".png");
                 new File(targetFile.getParent()).mkdirs();
                 FileOutputStream out = new FileOutputStream(targetFile);
@@ -176,11 +182,10 @@ public class Textures extends AsyncTask
             }
             case 2: {
                 inStream.read(byteArr);
-                color = (byteArr[1] & 0xFF) * 0x100 + (byteArr[0] & 0xFF);
-                int r = ((color >> 12) & 0xF) << 4;
-                int g = ((color >> 8) & 0xF) << 4;
-                int b = ((color >> 4) & 0xF) << 4;
-                int a = (color & 0xF) << 4;
+                int r = (byteArr[1] & 0xF0);
+                int g = (byteArr[1] & 0x0F) << 4;
+                int b = (byteArr[0] & 0xF0);
+                int a = (byteArr[0] & 0x0F) << 4;
                 color = Color.argb(a, r, g, b);
                 break;
             }
@@ -197,23 +202,22 @@ public class Textures extends AsyncTask
             case 4: {
                 inStream.read(byteArr);
                 color = (byteArr[1] & 0xFF) * 0x100 + (byteArr[0] & 0xFF);
-                int r = ((color >> 11) & 0x1F) << 3;
-                int g = ((color >> 5) & 0x3F) << 2;
-                int b = (color & 0X1F) << 3;
-                color = Color.argb(0, r, g, b);
+                int r = (color & 0xF800) >> 8;
+                int g = (color & 0x07E0) >> 3;
+                int b = (color & 0x001F) << 3;
+                color = Color.argb(0xFF, r, g, b);
                 break;
             }
             case 6: {
                 inStream.read(byteArr);
-                color = (byteArr[1] & 0xFF) * 0x100 + (byteArr[0] & 0xFF);
-                int rgb = color >> 8;
-                color = Color.argb(color >> 0xFF, rgb, rgb, rgb);
+                int rgb = byteArr[1] & 0xFF;
+                color = Color.argb(byteArr[0] & 0xFF, rgb, rgb, rgb);
                 break;
             }
             case 10: {
                 inStream.read(byteArr);
                 color = (byteArr[1] & 0xFF) * 0x100 + (byteArr[0] & 0xFF);
-                color = Color.argb(0, color, color, color);
+                color = Color.argb(0xFF, color, color, color);
                 break;
             }
 
