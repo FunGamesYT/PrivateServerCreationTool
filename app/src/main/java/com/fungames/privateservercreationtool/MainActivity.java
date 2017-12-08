@@ -1,10 +1,16 @@
 package com.fungames.privateservercreationtool;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -47,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private CardStatsFragment cardStatsFragment;
     private TexturesFragment texturesFragment;
     private Decompress decompress;
+    private int MY_PERMISSIONS_REQUEST_READ_CONTACTS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,10 +147,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void decrypt(View v){
-        ProgressBar decryptProgressBar = (ProgressBar) findViewById(R.id.decryptProgressBar);
-        decryptProgressBar.setVisibility(ProgressBar.VISIBLE);
-        TextView currentFile = (TextView) findViewById(R.id.currentFile);
-        decompress.execute(selectedApkPath, selectedApkFileName);
+        // The request code used in ActivityCompat.requestPermissions()
+// and returned in the Activity's onRequestPermissionsResult()
+        int PERMISSION_ALL = 1;
+        String[] PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+        if(!hasPermissions(this, PERMISSIONS)){
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
+        if(hasPermissions(this, PERMISSIONS)) {
+            ProgressBar decryptProgressBar = (ProgressBar) findViewById(R.id.decryptProgressBar);
+            decryptProgressBar.setVisibility(ProgressBar.VISIBLE);
+            TextView currentFile = (TextView) findViewById(R.id.currentFile);
+            decompress.execute(selectedApkPath, selectedApkFileName);
+        }
     }
 
     public void compress(View v){
@@ -242,6 +259,16 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         //This is necessary to change the icon of the Drawer Toggle upon state change.
         mDrawerToggle.syncState();
+    }
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
